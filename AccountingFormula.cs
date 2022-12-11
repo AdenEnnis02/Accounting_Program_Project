@@ -1,8 +1,8 @@
-class AccountingFormula
+class AccountingFormula: Formula
 {
     public bool balanced = true;
     Assets asset = new Assets();
-    public void balanceCheck()
+    public override void Calculate()
     {
         if (asset.totalAssets != (totalLiabilities + totalEquity))
         {
@@ -17,5 +17,32 @@ class AccountingFormula
             balanced = false;
         }
 
+    }
+}
+
+class LiquidityRatios: Formula
+{
+    public override void Calculate()
+    {
+        currentRatio = totalCurrentAssets / totalCurrentLiabilities
+        quickRatio = totalMoneyAssests / totalCurrentLiabilities
+    }
+}
+
+class SolvencyRatios: Formula
+{
+    public override void Calculate()
+    {
+        debtToEquity = totalLiabilities / totalEquity
+    }
+}
+
+class ProfitabilityRatios: Formula
+{
+    public override void Calculate()
+    {
+        grossMargin = grossProfit / Sales
+        int grossProfit = sales - costOfGoodsSold
+        profitMargin = netIncome / Sales
     }
 }
