@@ -2,13 +2,19 @@ class AccountingFormula: Formula
 {
     public bool balanced = true;
     Assets asset = new Assets();
+<<<<<<< Updated upstream
     public override void Calculate()
+=======
+    Liabilities liability = new Liabilities();
+    Equity equity = new Equity();
+    public void balanceCheck()
+>>>>>>> Stashed changes
     {
-        if (asset.totalAssets != (totalLiabilities + totalEquity))
+        if (asset.totalAssets != (liability.totalLiabilities + equity.totalEquity))
         {
             balanced = false;
         }
-        else if (totalEquity != (asset.totalAssets - totalLiabilities))
+        else if (equity.totalEquity != (asset.totalAssets - liability.totalLiabilities))
         {
             balanced = false;
         }
