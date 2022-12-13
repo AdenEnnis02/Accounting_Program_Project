@@ -1,7 +1,13 @@
-class Formula
+namespace Accounting
 {
-    public virtual void Calculate()
+    class Formula
+
+
     {
-        
+        public virtual void Calculate()
+        {
+
+        }
+
     }
 }

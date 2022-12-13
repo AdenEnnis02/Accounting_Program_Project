@@ -1,57 +1,104 @@
-class Liabilities
+namespace Accounting
 {
-    Dictionary<string, int> liabilities = new Dictionary<string, int>();
-    
-    public int totalLiabilities = 0;
-
-    public float addliabilities()
+    class Liabilities : Formula
     {
-        foreach(var liability in liabilities){
-            totalLiabilities += liability.Value;
+        Dictionary<string, float> currentLiabilities = new Dictionary<string, float>();
+        Dictionary<string, float> fixedLiabilities = new Dictionary<string, float>();
+
+        public float totalLiabilities = 0;
+        public float totalCurrentLiabilities = 0;
+        public float totalFixedLiabilities = 0;
+
+
+        public float addCurrentliabilities()
+        {
+            foreach (var liability in currentLiabilities)
+            {
+                totalCurrentLiabilities += liability.Value;
+            }
+            return totalCurrentLiabilities;
         }
-        return totalLiabilities;
-    }
 
-    public void createDict()
-    {
-        liabilities.Add("notesPayable1", 0);
-        liabilities.Add("accountPayable", 0);
-        liabilities.Add("wagesPayable", 0);
-        liabilities.Add("interestPayable", 0);
-        liabilities.Add("taxesPayable", 0);
-        liabilities.Add("warrantyLiability", 0);
-        liabilities.Add("unearnedRevenues", 0);
-        liabilities.Add("notePayable2", 0);
-        liabilities.Add("bondsPayable", 0);
+        public float addFixedliabilities()
+        {
+            foreach (var liability in fixedLiabilities)
+            {
+                totalFixedLiabilities += liability.Value;
+            }
+            return totalFixedLiabilities;
+        }
+        public float addLiabilities()
+        {
+            totalLiabilities = totalCurrentLiabilities + totalFixedLiabilities;
+            return totalLiabilities;
+        }
 
+        public void createDict()
+        {
+            currentLiabilities.Add("notesPayable1", 0);
+            currentLiabilities.Add("accountPayable", 0);
+            currentLiabilities.Add("wagesPayable", 0);
+            currentLiabilities.Add("interestPayable", 0);
+            currentLiabilities.Add("taxesPayable", 0);
+            currentLiabilities.Add("warrantyLiability", 0);
+            currentLiabilities.Add("unearnedRevenues", 0);
+            fixedLiabilities.Add("notePayable2", 0);
+            fixedLiabilities.Add("bondsPayable", 0);
+        }
 
+        public void updateCurrentLiabilities()
+        {
+            Console.WriteLine(" Enter your Current Liabilities: ");
+            Console.WriteLine("1. Notes Payable: ");
+            currentLiabilities["notesPayable1"] = float.Parse(Console.ReadLine() ?? "");
+            Console.WriteLine("2. Account Payable: ");
+            currentLiabilities["accountPayable"] = float.Parse(Console.ReadLine() ?? "");
+            Console.WriteLine("3. Wages Payable: ");
+            currentLiabilities["wagesPayable"] = float.Parse(Console.ReadLine() ?? "");
+            Console.WriteLine("4. Taxes Payable: ");
+            currentLiabilities["taxesPayable"] = float.Parse(Console.ReadLine() ?? "");
+            Console.WriteLine("5. Warranty Liabilty: ");
+            currentLiabilities["warrantyLiability"] = float.Parse(Console.ReadLine() ?? "");
+            Console.WriteLine("6. Unearned Revenues: ");
+            currentLiabilities["unearnedRevenues"] = float.Parse(Console.ReadLine() ?? "");
+        }
 
-    }
+        public void updateLongTermLiabilities()
+        {
+            Console.WriteLine(" Enter your Long-Term Liabilities: ");
+            Console.WriteLine("1. Notes Payable: ");
+            fixedLiabilities["notesPayable2"] = float.Parse(Console.ReadLine() ?? "");
+            Console.WriteLine("2. Bonds Payable: ");
+            fixedLiabilities["notesPayable"] = float.Parse(Console.ReadLine() ?? "");
+        }
 
-    public void updateCurrentLiabilities()
-    {
-        Console.WriteLine(" Enter your Current Liabilities: ");
-        Console.WriteLine("1. Notes Payable: ");
-        liabilities["notesPayable1"] = Int32.Parse(Console.ReadLine()??"");
-        Console.WriteLine("2. Account Payable: ");
-        liabilities["accountPayable"] = Int32.Parse(Console.ReadLine()??"");
-        Console.WriteLine("3. Wages Payable: ");
-        liabilities["wagesPayable"] = Int32.Parse(Console.ReadLine()??"");
-        Console.WriteLine("4. Taxes Payable: ");
-        liabilities["taxesPayable"] = Int32.Parse(Console.ReadLine()??"");
-        Console.WriteLine("5. Warranty Liabilty: ");
-        liabilities["warrantyLiability"] = Int32.Parse(Console.ReadLine()??"");
-        Console.WriteLine("6. Unearned Revenues: ");
-        liabilities["unearnedRevenues"] = Int32.Parse(Console.ReadLine()??"");
-    }
-
-    public void updateLongTermLiabilities()
-    {
-        Console.WriteLine(" Enter your Long-Term Liabilities: ");
-        Console.WriteLine("1. Notes Payable: ");
-        liabilities["notesPayable2"] = Int32.Parse(Console.ReadLine()??"");
-        Console.WriteLine("2. Bonds Payable: ");
-        liabilities["notesPayable"] = Int32.Parse(Console.ReadLine()??"");
+        public void printLiabilities()
+        {
+            foreach (var item in currentLiabilities)
+            {
+                Console.WriteLine(item.Key + ": $" + item.Value);
+            }
+            foreach (var item in currentLiabilities)
+            {
+                Console.WriteLine(item.Key + ": $" + item.Value);
+            }
+        }
+        public void createLiabilities()
+        {
+            createDict();
+            updateCurrentLiabilities();
+            updateLongTermLiabilities();
+        }
+        public override void Calculate()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Your liabilities:");
+            addCurrentliabilities();
+            addFixedliabilities();
+            addLiabilities();
+            Console.WriteLine("Total Current Liabilities: $" + this.totalCurrentLiabilities);
+            Console.WriteLine("Total Fixed Liabilities: $" + this.totalFixedLiabilities);
+            Console.WriteLine("Total Liabilities: $" + this.totalLiabilities);
+        }
     }
 }
-
